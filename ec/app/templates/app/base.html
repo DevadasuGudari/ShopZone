@@ -20,10 +20,10 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-white">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="{%static 'app/images/Neel.png' %}" width="70" height="50"/>
+                <img src="{%static 'app/images/Luxora.png' %}"  width="90" height="50"/>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -34,11 +34,11 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     {% if request.user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        <a class="nav-link active text-black" aria-current="page" href="/">Home</a>
                     </li>
                 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle text-black" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Products
                         </a>
@@ -53,10 +53,10 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{% url 'about' %}">About Us</a>
+                        <a class="nav-link text-black" href="{% url 'about' %}">About Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{% url 'contact' %}">Contact Us</a>
+                        <a class="nav-link text-black" href="{% url 'contact' %}">Contact Us</a>
                     </li>
                 </ul>
                 <form class="d-flex" role="search" action="/search">
@@ -67,7 +67,7 @@
 
             <ul class="navbar-nav me-auto mb-2 mb-1g-0">
               <li class="nav-item dropdown mx-2">
-                  <a class="nav-link dropdown-toggle text-white" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">ROOT</a>
+                  <a class="nav-link dropdown-toggle text-dark" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">ROOT</a>
                   <ul class="dropdown-menu" aria-labelledby="profiledropdown">
                     <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
                     <li><a class="dropdown-item" href="{% url 'orders' %}">Orders</a></li>
@@ -76,17 +76,17 @@
                   </ul>
               </li>
               <li class="nav-item mx-2">
-                <a href="{% url 'showcart' %}" class="nav-link text-white"><span class="badge bg-danger">{% if totalitem > 0 %} {{totalitem}} {% endif %}</span> <i class="fas fa-shopping-cart"></i></a>
+                <a href="{% url 'showcart' %}" class="nav-link text-dark"><span class="badge bg-danger">{% if totalitem > 0 %} {{totalitem}} {% endif %}</span> <i class="fas fa-shopping-cart"></i></a>
               </li>
               <li class="nav-item mx-2">
-                <a href="{% url 'showwishlist' %}" class="nav-link text-white"><span class="badge bg-danger">{% if wishitem > 0 %} {{wishitem}} {% endif %}</span> <i class="fa fa-heart"></i></a>
+                <a href="{% url 'showwishlist' %}" class="nav-link text-dark"><span class="badge bg-danger">{% if wishitem > 0 %} {{wishitem}} {% endif %}</span> <i class="fa fa-heart"></i></a>
               </li>
               {% else %}
               <li class="nav-item mx-2">
-                <a href="{% url 'login' %}" class="nav-link text-white">Login</a>
+                <a href="{% url 'login' %}" class="nav-link text-dark">Login</a>
               </li>
               <li class="nav-item mx-2">
-                <a href="{% url 'customerregistration' %}" class="nav-link text-white">Registration</a>
+                <a href="{% url 'customerregistration' %}" class="nav-link text-dark">Registration</a>
               </li>
               {% endif %}
             </ul>
@@ -98,7 +98,7 @@
     {% block main-content%}{% endblock main-content%}
     {% block payment-gateway %}{% endblock payment-gateway %}
 
-    <footer class="container-fluid fixed-bottom bg-success text-center p-2 mt-5">
+    <footer class="container-fluid fixed-bottom bg-white text-center p-2 mt-5">
         copyright : 2026 || Develop by : Devadasu
     </footer>
 
