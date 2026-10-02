@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="heroCarousel" class="carousel slide carousel-fade mb-5 rounded-3 overflow-hidden shadow" data-bs-ride="carousel" data-bs-interval="4000">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <div class="banner banner-1">
+        <div class="banner-emoji">🛒</div>
+        <div class="banner-text">
+          <h1>Everything you need, delivered.</h1>
+          <p>Dairy, mobiles, groceries, electronics and more in one place.</p>
+          <a href="{% url 'store:product_list' %}" class="btn btn-warning btn-lg">Shop Now</a>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="banner banner-2">
+        <div class="banner-emoji">🥛</div>
+        <div class="banner-text">
+          <h1>Farm-fresh dairy every day</h1>
+          <p>Milk, paneer, butter, curd and cheese at the best prices.</p>
+          <a href="{% url 'store:category' 'dairy' %}" class="btn btn-light btn-lg">Buy Dairy</a>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="banner banner-3">
+        <div class="banner-emoji">📱</div>
+        <div class="banner-text">
+          <h1>Latest mobiles, big discounts</h1>
+          <p>Top brands with up to 30% off on 5G smartphones.</p>
+          <a href="{% url 'store:category' 'mobiles' %}" class="btn btn-warning btn-lg">Explore Mobiles</a>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="banner banner-4">
+        <div class="banner-emoji">🎧</div>
+        <div class="banner-text">
+          <h1>Smart gadgets &amp; electronics</h1>
+          <p>Earbuds, smart watches, power banks and much more.</p>
+          <a href="{% url 'store:category' 'electronics' %}" class="btn btn-light btn-lg">View Gadgets</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span><span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span><span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+{% if featured %}
+<h4 class="mb-3">Featured Products</h4>
+<div class="row row-cols-2 row-cols-md-4 g-3 mb-4">
+  {% for p in featured %}<div class="col">{% include "store/_product_card.html" %}</div>{% endfor %}
+</div>
+{% endif %}
+
+<h4 class="mb-3">New Arrivals</h4>
+<div class="row row-cols-2 row-cols-md-4 g-3">
+  {% for p in latest %}<div class="col">{% include "store/_product_card.html" %}</div>
+  {% empty %}<p class="text-muted">No products yet. Run <code>python manage.py seed_data</code> to load samples.</p>{% endfor %}
+</div>
+{% endblock %}

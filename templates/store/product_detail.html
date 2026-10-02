@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}{{ product.name }} - ShopZone{% endblock %}
+{% block content %}
+<nav aria-label="breadcrumb"><ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="{% url 'store:home' %}">Home</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'store:category' product.category.slug %}">{{ product.category.name }}</a></li>
+  <li class="breadcrumb-item active">{{ product.name }}</li>
+</ol></nav>
+
+<div class="row g-4">
+  <div class="col-md-5">
+    {% if product.image %}<img src="{{ product.image.url }}" class="img-fluid rounded border" alt="{{ product.name }}">
+    {% else %}<div class="placeholder-img detail-placeholder rounded border">{{ product.category.icon|default:"📦" }}</div>{% endif %}
+  </div>
+  <div class="col-md-7">
+    <small class="text-muted">{{ product.brand }}</small>
+    <h2>{{ product.name }}</h2>
+    {% if product.average_rating %}<div class="mb-2">⭐ {{ product.average_rating }} <small class="text-muted">({{ reviews|length }} review{{ reviews|length|pluralize }})</small></div>{% endif %}
+    <div class="mb-3">
+      <span class="display-6 fw-bold">₹{{ product.price }}</span>
+      {% if product.discount_percent %}
+        <span class="text-muted text-decoration-line-through ms-2">₹{{ product.mrp }}</span>
+        <span class="badge bg-success ms-2">{{ product.discount_percent }}% off</span>
+      {% endif %}
+    </div>
+    <p>{{ product.description }}</p>
+    <p>{% if product.in_stock %}<span class="badge bg-success">In stock ({{ product.stock }} left)</span>{% else %}<span class="badge bg-danger">Out of stock</span>{% endif %}</p>
+
+    {% if product.in_stock %}
+    <form method="post" action="{% url 'cart:add' product.id %}" class="d-flex flex-wrap gap-2 mb-4">
+      {% csrf_token %}
+      <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}" class="form-control" style="width:90px">
+      <button class="btn btn-warning">Add to Cart</button>
+      <button class="btn btn-dark" name="buy_now" value="1">Buy Now</button>
+    </form>
+    {% endif %}
+
+    {% if product.attributes.all %}
+    <h5>Specifications</h5>
+    <table class="table table-sm table-striped w-auto">
+      {% for a in product.attributes.all %}<tr><th class="pe-4">{{ a.name }}</th><td>{{ a.value }}</td></tr>{% endfor %}
+    </table>
+    {% endif %}
+  </div>
+</div>
+
+<hr class="my-4">
+<div class="row">
+  <div class="col-md-7">
+    <h4>Customer Reviews</h4>
+    {% for r in reviews %}
+    <div class="border rounded p-3 mb-2">
+      <strong>{{ r.user.username }}</strong> <span class="ms-2">{{ r.rating }}/5 ⭐</span>
+      <small class="text-muted float-end">{{ r.created|date:"d M Y" }}</small>
+      <p class="mb-0 mt-1">{{ r.comment }}</p>
+    </div>
+    {% empty %}<p class="text-muted">No reviews yet.</p>{% endfor %}
+  </div>
+  <div class="col-md-5">
+    <h5>Write a review</h5>
+    {% if user.is_authenticated %}
+    <form method="post" action="{% url 'store:add_review' product.slug %}">
+      {% csrf_token %}
+      <select name="rating" class="form-select mb-2">
+        <option value="5">5 - Excellent</option><option value="4">4 - Good</option>
+        <option value="3">3 - Average</option><option value="2">2 - Poor</option><option value="1">1 - Terrible</option>
+      </select>
+      <textarea name="comment" rows="3" class="form-control mb-2" placeholder="Share your experience"></textarea>
+      <button class="btn btn-dark">Submit</button>
+    </form>
+    {% else %}<p><a href="{% url 'login' %}?next={{ request.path }}">Log in</a> to write a review.</p>{% endif %}
+  </div>
+</div>
+
+{% if related %}
+<h4 class="mt-5 mb-3">Related Products</h4>
+<div class="row row-cols-2 row-cols-md-4 g-3">
+  {% for p in related %}<div class="col">{% include "store/_product_card.html" %}</div>{% endfor %}
+</div>
+{% endif %}
+{% endblock %}

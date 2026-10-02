@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}My Orders - ShopZone{% endblock %}
+{% block content %}
+<h3 class="mb-3">My Orders</h3>
+{% if orders %}
+<table class="table align-middle">
+  <thead><tr><th>Order</th><th>Date</th><th>Total</th><th>Payment</th><th>Status</th><th></th></tr></thead>
+  {% for o in orders %}
+  <tr>
+    <td>#{{ o.id }}</td><td>{{ o.created|date:"d M Y" }}</td><td>₹{{ o.total }}</td>
+    <td>{{ o.get_payment_method_display }}</td>
+    <td><span class="badge bg-info text-dark">{{ o.get_status_display }}</span></td>
+    <td><a href="{% url 'orders:detail' o.id %}" class="btn btn-sm btn-outline-dark">Details</a></td>
+  </tr>{% endfor %}
+</table>
+{% else %}<div class="alert alert-info">You have no orders yet.</div>{% endif %}
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}{% if category %}{{ category.name }}{% else %}All Products{% endif %} - ShopZone{% endblock %}
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+  <h3 class="mb-0">{% if category %}{{ category.icon }} {{ category.name }}{% else %}All Products{% endif %}
+    {% if q %}<small class="text-muted fs-6">results for "{{ q }}"</small>{% endif %}</h3>
+  <small class="text-muted">{{ page.paginator.count }} item{{ page.paginator.count|pluralize }}</small>
+</div>
+
+<form method="get" class="row g-2 mb-4">
+  {% if q %}<input type="hidden" name="q" value="{{ q }}">{% endif %}
+  <div class="col-6 col-md-2"><input type="number" name="min_price" class="form-control" placeholder="Min ₹" value="{{ min_price }}"></div>
+  <div class="col-6 col-md-2"><input type="number" name="max_price" class="form-control" placeholder="Max ₹" value="{{ max_price }}"></div>
+  <div class="col-8 col-md-3">
+    <select name="sort" class="form-select">
+      <option value="new" {% if sort == 'new' %}selected{% endif %}>Newest</option>
+      <option value="price_low" {% if sort == 'price_low' %}selected{% endif %}>Price: Low to High</option>
+      <option value="price_high" {% if sort == 'price_high' %}selected{% endif %}>Price: High to Low</option>
+      <option value="name" {% if sort == 'name' %}selected{% endif %}>Name A-Z</option>
+    </select>
+  </div>
+  <div class="col-4 col-md-2"><button class="btn btn-dark w-100">Apply</button></div>
+</form>
+
+<div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3">
+  {% for p in page %}<div class="col">{% include "store/_product_card.html" %}</div>
+  {% empty %}<div class="col-12"><div class="alert alert-info">No products found.</div></div>{% endfor %}
+</div>
+
+{% if page.paginator.num_pages > 1 %}
+<nav class="mt-4"><ul class="pagination justify-content-center">
+  {% if page.has_previous %}<li class="page-item"><a class="page-link" href="?{{ querystring }}&page={{ page.previous_page_number }}">Previous</a></li>{% endif %}
+  <li class="page-item disabled"><span class="page-link">Page {{ page.number }} of {{ page.paginator.num_pages }}</span></li>
+  {% if page.has_next %}<li class="page-item"><a class="page-link" href="?{{ querystring }}&page={{ page.next_page_number }}">Next</a></li>{% endif %}
+</ul></nav>
+{% endif %}
+{% endblock %}
