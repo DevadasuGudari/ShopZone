@@ -1,66 +1,12 @@
-<<<<<<< HEAD
-# ShopZone - Django Online Shopping Website
+# 🛒 ShopZone - Django Online Shopping Website
 
-A multi-category e-commerce site (dairy, mobiles, groceries, electronics, fashion,
-home & kitchen, books) built with Django and Bootstrap 5.
-
-## Features
-- Categories and sub-categories, product catalogue with images, brand, MRP/discount
-- Flexible product specifications (RAM/Storage for phones, Shelf life for dairy, ...)
-- Search, price filter, sorting, pagination
-- Session-based shopping cart (add, update quantity, remove, stock limits)
-- Home page with banner carousel, About page
-- User sign up, login, logout, icon-only profile menu (update details, change password, orders, logout)
-- Checkout (COD / UPI / Card - simulated), automatic stock reduction
-- Order history and order details
-- Product reviews and ratings
-- Home page with banner carousel, About page
-- Profile icon menu: update details, change password, my orders, logout
-- Django admin for products, categories and order status management
-
-## Setup
-```bash
-python -m venv venv
-venv\Scripts\activate          # Windows
-# source venv/bin/activate     # Mac / Linux
-
-pip install -r requirements.txt
-python manage.py makemigrations store orders
-python manage.py migrate
-python manage.py seed_data          # loads sample products
-python manage.py createsuperuser    # for /admin
-python manage.py runserver
-```
-Open http://127.0.0.1:8000/  and the admin at http://127.0.0.1:8000/admin/
-
-## Project structure
-```
-config/     settings, root urls
-store/      Category, Product, ProductAttribute, Review, listing/detail views, seed command
-cart/       session cart logic and views
-orders/     Order, OrderItem, checkout, order history
-accounts/   signup / login / logout
-templates/  HTML templates (Bootstrap 5 via CDN)
-static/     CSS
-```
-
-## Adding product images
-Log in to /admin, open a product and upload an image. Without an image the site
-shows the category emoji as a placeholder.
-
-## Before deploying
-Set DEBUG = False, change SECRET_KEY, set ALLOWED_HOSTS, switch to PostgreSQL,
-and serve static files with WhiteNoise or Nginx. Integrate Razorpay for real payments.
-=======
-# 🛒 Online Shopping Website
-
-A full-stack **Online Shopping Website** developed using the **Django framework**. This project provides a simple and user-friendly e-commerce experience where users can browse products, view product details, manage their shopping cart, and place orders.
+A full-stack, multi-category **Online Shopping Website** (dairy, mobiles, groceries, electronics, fashion, home & kitchen, books) developed using the **Django framework** and **Bootstrap 5**. ShopZone provides a simple and user-friendly e-commerce experience where users can browse products, view product details, manage their shopping cart, and place orders.
 
 The project demonstrates the practical use of **Python, Django, HTML, CSS, JavaScript, and database management** to build a dynamic web application.
 
 ## 📌 Project Overview
 
-The Online Shopping Website is designed to simulate a real-world e-commerce platform.
+ShopZone is designed to simulate a real-world e-commerce platform.
 
 Users can explore available products, view product information, add products to their cart, update quantities, and proceed through the ordering process.
 
@@ -72,45 +18,39 @@ Django provides built-in functionality for authentication, forms, database inter
 
 ### 👤 User Features
 
-* User registration
-* User login and logout
-* User authentication
-* Browse products
-* View product details
-* Search and browse products
-* Add products to cart
-* Update product quantity
-* Remove products from cart
-* View cart total
-* Place orders
-* View order information
+* User sign up, login, and logout (Django authentication)
+* Icon-only profile menu: update details, change password, my orders, logout
+* Home page with banner carousel and About page
+* Browse products, search, price filter, sorting, and pagination
+* View product details and ratings
+* Product reviews and ratings
+* Order history and order details
 * Responsive user interface
 
 ### 🛍️ Product Features
 
-* Product listing
-* Product details
-* Product name and description
-* Product price
-* Product category
-* Product availability
+* Categories and sub-categories
+* Product catalogue with images, brand, MRP, and discount
+* Flexible product specifications (RAM/Storage for phones, Shelf life for dairy, ...)
+* Product name, description, price, and availability
 * Product management through Django Admin
 
 ### 🛒 Shopping Cart
 
+* Session-based cart
 * Add products to cart
-* Increase or decrease quantity
+* Update quantity (with stock limits)
 * Remove products
-* Calculate total price
-* Maintain cart information using Django sessions/database
+* Calculate cart total
 
 ### 📦 Order Management
 
+* Checkout with COD / UPI / Card (simulated)
 * Create orders from cart items
-* Store customer information
-* Store ordered products
+* Store customer information and ordered products
 * Calculate order totals
-* Track order information
+* Automatic stock reduction
+* Track order information and status
 
 ### 🔐 Authentication
 
@@ -123,7 +63,7 @@ Django Admin is used to manage:
 * Products
 * Categories
 * Users
-* Orders
+* Orders and order status
 * Customers
 * Other application data
 
@@ -136,7 +76,7 @@ Django includes an automatic administration interface that can be customized for
 * HTML5
 * CSS3
 * JavaScript
-* Bootstrap *(if used in your project)*
+* Bootstrap 5 (via CDN)
 
 ### Backend
 
@@ -196,37 +136,14 @@ Django provides database models, URL routing, views, templates, forms, authentic
 ## 📂 Project Structure
 
 ```text
-online-shopping/
-│
-├── manage.py
-│
-├── project/
-│   ├── __init__.py
-│   ├── settings.py
-│   ├── urls.py
-│   ├── asgi.py
-│   └── wsgi.py
-│
-├── shop/
-│   ├── migrations/
-│   ├── templates/
-│   ├── static/
-│   ├── admin.py
-│   ├── apps.py
-│   ├── forms.py
-│   ├── models.py
-│   ├── urls.py
-│   ├── views.py
-│   └── tests.py
-│
-├── db.sqlite3
-│
-├── requirements.txt
-│
-└── README.md
+config/      settings, root urls
+store/       Category, Product, ProductAttribute, Review, listing/detail views, seed command
+cart/        session cart logic and views
+orders/      Order, OrderItem, checkout, order history
+accounts/    signup / login / logout
+templates/   HTML templates (Bootstrap 5 via CDN)
+static/      CSS
 ```
-
-> Folder names may be different depending on your actual Django project structure.
 
 ## 🚀 Installation and Setup
 
@@ -277,11 +194,17 @@ pip install django
 ### 6. Apply Database Migrations
 
 ```bash
-python manage.py makemigrations
+python manage.py makemigrations store orders
 python manage.py migrate
 ```
 
-### 7. Create a Superuser
+### 7. Load Sample Products
+
+```bash
+python manage.py seed_data
+```
+
+### 8. Create a Superuser
 
 ```bash
 python manage.py createsuperuser
@@ -289,7 +212,7 @@ python manage.py createsuperuser
 
 Follow the terminal instructions to create your admin account.
 
-### 8. Run the Development Server
+### 9. Run the Development Server
 
 ```bash
 python manage.py runserver
@@ -316,8 +239,12 @@ The admin can be used to manage application data such as:
 * Products
 * Categories
 * Users
-* Orders
+* Orders and order status
 * Customers
+
+## 🖼️ Adding Product Images
+
+Log in to `/admin`, open a product, and upload an image. Without an image, the site shows the category emoji as a placeholder.
 
 ## 📋 Example User Flow
 
@@ -360,20 +287,23 @@ The main objectives of this project are:
 
 The project can be extended with:
 
-* Online payment gateway
-* Product reviews and ratings
+* Online payment gateway (integrate Razorpay for real payments)
 * Wishlist functionality
-* Order tracking
 * Email notifications
-* Product filtering
-* Advanced product search
-* User profile management
-* Multiple product categories
 * Coupon and discount system
 * REST API using Django REST Framework
 * PostgreSQL database
 * Cloud deployment
 * Improved security and performance
+
+## 🌐 Before Deploying
+
+* Set `DEBUG = False`
+* Change `SECRET_KEY`
+* Set `ALLOWED_HOSTS`
+* Switch to PostgreSQL
+* Serve static files with WhiteNoise or Nginx
+* Integrate Razorpay for real payments
 
 ## 🧪 Testing
 
@@ -424,4 +354,3 @@ You are free to modify and improve the project for learning and personal develop
 ---
 
 ⭐ **If you found this project useful, consider giving the repository a star!**
->>>>>>> d58da1e2ab32fe6881145ffe8f39aec5fb267a3c
